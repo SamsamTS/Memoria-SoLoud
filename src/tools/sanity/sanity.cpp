@@ -1419,15 +1419,15 @@ void testSpeech()
 	CHECK(soloud.getActiveVoiceCount() == 0);
 	soloud.stopAll();
 
-	speech.setLoopPoint(0.1f);
-	CHECK(speech.getLoopPoint() == 0.1f);
-	speech.setLoopPoint(0.5f);
-	CHECK(speech.getLoopPoint() != 0.1f);
+	speech.setLoopStartPoint(0.1f);
+	CHECK(speech.getLoopStartPoint() == 0.1f);
+	speech.setLoopStartPoint(0.5f);
+	CHECK(speech.getLoopStartPoint() != 0.1f);
 	int handle = soloud.play(speech);
-	soloud.setLoopPoint(handle, 0.1f);
-	CHECK(soloud.getLoopPoint(handle) == 0.1f);
-	soloud.setLoopPoint(handle, 0.5f);
-	CHECK(soloud.getLoopPoint(handle) != 0.1f);
+	soloud.setLoopStartPoint(handle, 0.1f);
+	CHECK(soloud.getLoopStartPoint(handle) == 0.1f);
+	soloud.setLoopStartPoint(handle, 0.5f);
+	CHECK(soloud.getLoopStartPoint(handle) != 0.1f);
 
 	for (i = 0; i < 100; i++)
 		soloud.mix(scratch, 1000);

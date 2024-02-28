@@ -178,10 +178,17 @@ namespace SoLoud
 		FOR_ALL_VOICES_POST
 	}
 
-	void Soloud::setLoopPoint(handle aVoiceHandle, time aLoopPoint)
+	void Soloud::setLoopStartPoint(handle aVoiceHandle, time aLoopPoint)
 	{
 		FOR_ALL_VOICES_PRE
-			mVoice[ch]->mLoopPoint = aLoopPoint;
+			mVoice[ch]->mLoopStartPoint = aLoopPoint;
+		FOR_ALL_VOICES_POST
+	}
+
+	void Soloud::setLoopEndPoint(handle aVoiceHandle, time aLoopPoint)
+	{
+		FOR_ALL_VOICES_PRE
+			mVoice[ch]->mLoopEndPoint = aLoopPoint;
 		FOR_ALL_VOICES_POST
 	}
 

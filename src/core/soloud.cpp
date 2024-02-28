@@ -1657,23 +1657,37 @@ namespace SoLoud
 						voice->mResampleData[0] = voice->mResampleData[1];
 						voice->mResampleData[1] = t;
 
+						bool looping = (voice->mLoopEndPoint > 0 && voice->mStreamPosition <= voice->mLoopEndPoint);
+						if (looping)
+						{
+							voice->mFlags |= AudioSourceInstance::LOOPING;
+						}
+						else
+						{
+							voice->mFlags &= ~AudioSourceInstance::LOOPING;
+						}
+
 						// Get a block of source data
 
 						int readcount = 0;
-						if (!voice->hasEnded() || voice->mFlags & AudioSourceInstance::LOOPING)
+						if (!voice->hasEnded() || looping)
 						{
-							readcount = voice->getAudio(voice->mResampleData[0], SAMPLE_GRANULARITY, SAMPLE_GRANULARITY);
-							if (readcount < SAMPLE_GRANULARITY)
+							unsigned int samplesToRead = SAMPLE_GRANULARITY;
+							if (looping)
 							{
-								if (voice->mFlags & AudioSourceInstance::LOOPING)
+								samplesToRead = (unsigned int)((voice->mLoopEndPoint - voice->mStreamPosition) * voice->mSamplerate);
+								if (samplesToRead > SAMPLE_GRANULARITY) samplesToRead = SAMPLE_GRANULARITY;
+							}
+
+							readcount = voice->getAudio(voice->mResampleData[0], samplesToRead, SAMPLE_GRANULARITY);
+							if (looping)
+							{
+								while (readcount < SAMPLE_GRANULARITY && voice->seek(voice->mLoopStartPoint, mScratch.mData, mScratchSize) == SO_NO_ERROR)
 								{
-									while (readcount < SAMPLE_GRANULARITY && voice->seek(voice->mLoopPoint, mScratch.mData, mScratchSize) == SO_NO_ERROR)
-									{
-										voice->mLoopCount++;
-										int inc = voice->getAudio(voice->mResampleData[0] + readcount, SAMPLE_GRANULARITY - readcount, SAMPLE_GRANULARITY);
-										readcount += inc;
-										if (inc == 0) break;
-									}
+									voice->mLoopCount++;
+									int inc = voice->getAudio(voice->mResampleData[0] + readcount, SAMPLE_GRANULARITY - readcount, SAMPLE_GRANULARITY);
+									readcount += inc;
+									if (inc == 0) break;
 								}
 							}
 						}
@@ -1834,21 +1848,28 @@ namespace SoLoud
 						voice->mResampleData[0] = voice->mResampleData[1];
 						voice->mResampleData[1] = t;
 
+						bool looping = (voice->mLoopEndPoint > 0 && voice->mStreamPosition <= voice->mLoopEndPoint);
+						if (looping)
+						{
+							voice->mFlags |= AudioSourceInstance::LOOPING;
+						}
+						else
+						{
+							voice->mFlags &= ~AudioSourceInstance::LOOPING;
+						}
+
 						// Get a block of source data
 
 						int readcount = 0;
-						if (!voice->hasEnded() || voice->mFlags & AudioSourceInstance::LOOPING)
+						if (!voice->hasEnded() || looping)
 						{
 							readcount = voice->getAudio(voice->mResampleData[0], SAMPLE_GRANULARITY, SAMPLE_GRANULARITY);
-							if (readcount < SAMPLE_GRANULARITY)
+							if (readcount < SAMPLE_GRANULARITY && looping)
 							{
-								if (voice->mFlags & AudioSourceInstance::LOOPING)
+								while (readcount < SAMPLE_GRANULARITY && voice->seek(voice->mLoopStartPoint, mScratch.mData, mScratchSize) == SO_NO_ERROR)
 								{
-									while (readcount < SAMPLE_GRANULARITY && voice->seek(voice->mLoopPoint, mScratch.mData, mScratchSize) == SO_NO_ERROR)
-									{
-										voice->mLoopCount++;
-										readcount += voice->getAudio(voice->mResampleData[0] + readcount, SAMPLE_GRANULARITY - readcount, SAMPLE_GRANULARITY);
-									}
+									voice->mLoopCount++;
+									readcount += voice->getAudio(voice->mResampleData[0] + readcount, SAMPLE_GRANULARITY - readcount, SAMPLE_GRANULARITY);
 								}
 							}
 						}

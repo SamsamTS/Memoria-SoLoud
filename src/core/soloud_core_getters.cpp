@@ -124,7 +124,7 @@ namespace SoLoud
 	}
 
 
-	time Soloud::getLoopPoint(handle aVoiceHandle)
+	time Soloud::getLoopStartPoint(handle aVoiceHandle)
 	{
 		lockAudioMutex_internal();
 		int ch = getVoiceFromHandle_internal(aVoiceHandle);
@@ -133,7 +133,21 @@ namespace SoLoud
 			unlockAudioMutex_internal();
 			return 0;
 		}
-		time v = mVoice[ch]->mLoopPoint;
+		time v = mVoice[ch]->mLoopStartPoint;
+		unlockAudioMutex_internal();
+		return v;
+	}
+
+	time Soloud::getLoopEndPoint(handle aVoiceHandle)
+	{
+		lockAudioMutex_internal();
+		int ch = getVoiceFromHandle_internal(aVoiceHandle);
+		if (ch == -1)
+		{
+			unlockAudioMutex_internal();
+			return 0;
+		}
+		time v = mVoice[ch]->mLoopEndPoint;
 		unlockAudioMutex_internal();
 		return v;
 	}

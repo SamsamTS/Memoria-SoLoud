@@ -85,7 +85,8 @@ namespace SoLoud
 		mChannels = 1;
 		mBusHandle = ~0u;
 		mLoopCount = 0;
-		mLoopPoint = 0;
+		mLoopStartPoint = 0;
+		mLoopEndPoint = 0;
 		for (i = 0; i < FILTERS_PER_STREAM; i++)
 		{
 			mFilter[i] = NULL;
@@ -121,7 +122,8 @@ namespace SoLoud
 		mChannels = aSource.mChannels;
 		mStreamTime = 0.0f;
 		mStreamPosition = 0.0f;
-		mLoopPoint = aSource.mLoopPoint;
+		mLoopStartPoint = aSource.mLoopStartPoint;
+		mLoopEndPoint = aSource.mLoopEndPoint;
 
 		if (aSource.mFlags & AudioSource::SHOULD_LOOP)
 		{
@@ -202,7 +204,8 @@ namespace SoLoud
 		mAttenuator = 0;
 		mColliderData = 0;
 		mVolume = 1;
-		mLoopPoint = 0;
+		mLoopStartPoint = 0;
+		mLoopEndPoint = 0;
 	}
 
 	AudioSource::~AudioSource() 
@@ -215,14 +218,25 @@ namespace SoLoud
 		mVolume = aVolume;
 	}
 
-	void AudioSource::setLoopPoint(time aLoopPoint)
+	void AudioSource::setLoopStartPoint(time aLoopPoint)
 	{
-		mLoopPoint = aLoopPoint;
+		mLoopStartPoint = aLoopPoint;
 	}
 
-	time AudioSource::getLoopPoint()
+
+	void AudioSource::setLoopEndPoint(time aLoopPoint)
 	{
-		return mLoopPoint;
+		mLoopEndPoint = aLoopPoint;
+	}
+
+	time AudioSource::getLoopStartPoint()
+	{
+		return mLoopStartPoint;
+	}
+
+	time AudioSource::getLoopEndPoint()
+	{
+		return mLoopEndPoint;
 	}
 
 	void AudioSource::setLooping(bool aLoop)

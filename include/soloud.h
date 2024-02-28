@@ -324,11 +324,15 @@ namespace SoLoud
 		bool getLooping(handle aVoiceHandle);
 		// Query whether a voice is set to auto-stop when it ends.
 		bool getAutoStop(handle aVoiceHandle);
-		// Get voice loop point value
-		time getLoopPoint(handle aVoiceHandle);
+		// Get voice loop start point value
+		time getLoopStartPoint(handle aVoiceHandle);
+		// Get voice loop end point value
+		time getLoopEndPoint(handle aVoiceHandle);
 
-		// Set voice loop point value
-		void setLoopPoint(handle aVoiceHandle, time aLoopPoint);
+		// Set voice loop start point value
+		void setLoopStartPoint(handle aVoiceHandle, time aLoopPoint);
+		// Set voice loop end point value
+		void setLoopEndPoint(handle aVoiceHandle, time aLoopPoint);
 		// Set voice's loop state
 		void setLooping(handle aVoiceHandle, bool aLooping);
 		// Set whether sound should auto-stop when it ends

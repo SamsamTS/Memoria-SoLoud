@@ -367,16 +367,28 @@ int Soloud_getAutoStop(void * aClassPtr, unsigned int aVoiceHandle)
 	return cl->getAutoStop(aVoiceHandle);
 }
 
-double Soloud_getLoopPoint(void * aClassPtr, unsigned int aVoiceHandle)
+double Soloud_getLoopStartPoint(void * aClassPtr, unsigned int aVoiceHandle)
 {
 	Soloud * cl = (Soloud *)aClassPtr;
-	return cl->getLoopPoint(aVoiceHandle);
+	return cl->getLoopStartPoint(aVoiceHandle);
 }
 
-void Soloud_setLoopPoint(void * aClassPtr, unsigned int aVoiceHandle, double aLoopPoint)
+void Soloud_setLoopStartPoint(void * aClassPtr, unsigned int aVoiceHandle, double aLoopPoint)
 {
 	Soloud * cl = (Soloud *)aClassPtr;
-	cl->setLoopPoint(aVoiceHandle, aLoopPoint);
+	cl->setLoopStartPoint(aVoiceHandle, aLoopPoint);
+}
+
+double Soloud_getLoopEndPoint(void* aClassPtr, unsigned int aVoiceHandle)
+{
+	Soloud* cl = (Soloud*)aClassPtr;
+	return cl->getLoopEndPoint(aVoiceHandle);
+}
+
+void Soloud_setLoopEndPoint(void* aClassPtr, unsigned int aVoiceHandle, double aLoopPoint)
+{
+	Soloud* cl = (Soloud*)aClassPtr;
+	cl->setLoopEndPoint(aVoiceHandle, aLoopPoint);
 }
 
 void Soloud_setLooping(void * aClassPtr, unsigned int aVoiceHandle, int aLooping)
@@ -803,16 +815,28 @@ void Ay_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Ay_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Ay_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Ay * cl = (Ay *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Ay_getLoopPoint(void * aClassPtr)
+double Ay_getLoopStartPoint(void * aClassPtr)
 {
 	Ay * cl = (Ay *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Ay_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Ay* cl = (Ay*)aClassPtr;
+	cl->setLoopStartPoint(aLoopPoint);
+}
+
+double Ay_getLoopEndPoint(void* aClassPtr)
+{
+	Ay* cl = (Ay*)aClassPtr;
+	return cl->getLoopStartPoint();
 }
 
 void Ay_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -1109,16 +1133,28 @@ void Bus_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Bus_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Bus_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Bus * cl = (Bus *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Bus_getLoopPoint(void * aClassPtr)
+double Bus_getLoopStartPoint(void * aClassPtr)
 {
 	Bus * cl = (Bus *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Bus_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Bus* cl = (Bus*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Bus_getLoopEndPoint(void* aClassPtr)
+{
+	Bus* cl = (Bus*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Bus_stop(void * aClassPtr)
@@ -1527,16 +1563,28 @@ void Monotone_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Monotone_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Monotone_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Monotone * cl = (Monotone *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Monotone_getLoopPoint(void * aClassPtr)
+double Monotone_getLoopStartPoint(void * aClassPtr)
 {
 	Monotone * cl = (Monotone *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Monotone_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Monotone* cl = (Monotone*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Monotone_getLoopEndPoint(void* aClassPtr)
+{
+	Monotone* cl = (Monotone*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Monotone_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -1645,16 +1693,28 @@ void Noise_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Noise_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Noise_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Noise * cl = (Noise *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Noise_getLoopPoint(void * aClassPtr)
+double Noise_getLoopStartPoint(void * aClassPtr)
 {
 	Noise * cl = (Noise *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Noise_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Noise* cl = (Noise*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Noise_getLoopEndPoint(void* aClassPtr)
+{
+	Noise* cl = (Noise*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Noise_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -1775,16 +1835,28 @@ void Openmpt_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Openmpt_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Openmpt_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Openmpt * cl = (Openmpt *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Openmpt_getLoopPoint(void * aClassPtr)
+double Openmpt_getLoopStartPoint(void * aClassPtr)
 {
 	Openmpt * cl = (Openmpt *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Openmpt_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Openmpt* cl = (Openmpt*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Openmpt_getLoopEndPoint(void* aClassPtr)
+{
+	Openmpt* cl = (Openmpt*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Openmpt_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -1917,16 +1989,28 @@ void Queue_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Queue_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Queue_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Queue * cl = (Queue *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Queue_getLoopPoint(void * aClassPtr)
+double Queue_getLoopStartPoint(void * aClassPtr)
 {
 	Queue * cl = (Queue *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Queue_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Queue* cl = (Queue*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Queue_getLoopEndPoint(void* aClassPtr)
+{
+	Queue* cl = (Queue*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Queue_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2105,16 +2189,28 @@ void Sfxr_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Sfxr_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Sfxr_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Sfxr * cl = (Sfxr *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Sfxr_getLoopPoint(void * aClassPtr)
+double Sfxr_getLoopStartPoint(void * aClassPtr)
 {
 	Sfxr * cl = (Sfxr *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Sfxr_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Sfxr* cl = (Sfxr*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Sfxr_getLoopEndPoint(void* aClassPtr)
+{
+	Sfxr* cl = (Sfxr*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Sfxr_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2229,16 +2325,28 @@ void Speech_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Speech_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Speech_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Speech * cl = (Speech *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Speech_getLoopPoint(void * aClassPtr)
+double Speech_getLoopStartPoint(void * aClassPtr)
 {
 	Speech * cl = (Speech *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Speech_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Speech* cl = (Speech*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Speech_getLoopEndPoint(void* aClassPtr)
+{
+	Speech* cl = (Speech*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Speech_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2359,16 +2467,28 @@ void TedSid_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void TedSid_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void TedSid_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	TedSid * cl = (TedSid *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double TedSid_getLoopPoint(void * aClassPtr)
+double TedSid_getLoopStartPoint(void * aClassPtr)
 {
 	TedSid * cl = (TedSid *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void TedSid_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	TedSid* cl = (TedSid*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double TedSid_getLoopEndPoint(void* aClassPtr)
+{
+	TedSid* cl = (TedSid*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void TedSid_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2489,16 +2609,28 @@ void Vic_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Vic_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Vic_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Vic * cl = (Vic *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Vic_getLoopPoint(void * aClassPtr)
+double Vic_getLoopStartPoint(void * aClassPtr)
 {
 	Vic * cl = (Vic *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Vic_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Vic* cl = (Vic*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Vic_getLoopEndPoint(void* aClassPtr)
+{
+	Vic* cl = (Vic*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Vic_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2601,16 +2733,28 @@ void Vizsn_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Vizsn_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Vizsn_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Vizsn * cl = (Vizsn *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Vizsn_getLoopPoint(void * aClassPtr)
+double Vizsn_getLoopStartPoint(void * aClassPtr)
 {
 	Vizsn * cl = (Vizsn *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void Vizsn_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Vizsn* cl = (Vizsn*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Vizsn_getLoopEndPoint(void* aClassPtr)
+{
+	Vizsn* cl = (Vizsn*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void Vizsn_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
@@ -2773,18 +2917,29 @@ void Wav_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void Wav_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void Wav_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	Wav * cl = (Wav *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double Wav_getLoopPoint(void * aClassPtr)
+double Wav_getLoopStartPoint(void * aClassPtr)
 {
 	Wav * cl = (Wav *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
 }
 
+void Wav_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	Wav* cl = (Wav*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double Wav_getLoopEndPoint(void* aClassPtr)
+{
+	Wav* cl = (Wav*)aClassPtr;
+	return cl->getLoopEndPoint();
+}
 void Wav_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
 {
 	Wav * cl = (Wav *)aClassPtr;
@@ -2967,16 +3122,28 @@ void WavStream_setInaudibleBehavior(void * aClassPtr, int aMustTick, int aKill)
 	cl->setInaudibleBehavior(!!aMustTick, !!aKill);
 }
 
-void WavStream_setLoopPoint(void * aClassPtr, double aLoopPoint)
+void WavStream_setLoopStartPoint(void * aClassPtr, double aLoopPoint)
 {
 	WavStream * cl = (WavStream *)aClassPtr;
-	cl->setLoopPoint(aLoopPoint);
+	cl->setLoopStartPoint(aLoopPoint);
 }
 
-double WavStream_getLoopPoint(void * aClassPtr)
+double WavStream_getLoopStartPoint(void * aClassPtr)
 {
 	WavStream * cl = (WavStream *)aClassPtr;
-	return cl->getLoopPoint();
+	return cl->getLoopStartPoint();
+}
+
+void WavStream_setLoopEndPoint(void* aClassPtr, double aLoopPoint)
+{
+	WavStream* cl = (WavStream*)aClassPtr;
+	cl->setLoopEndPoint(aLoopPoint);
+}
+
+double WavStream_getLoopEndPoint(void* aClassPtr)
+{
+	WavStream* cl = (WavStream*)aClassPtr;
+	return cl->getLoopEndPoint();
 }
 
 void WavStream_setFilter(void * aClassPtr, unsigned int aFilterId, Filter * aFilter)
