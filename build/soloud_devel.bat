@@ -1,1 +1,1 @@
-genie --soloud-devel --platform=x32 vs2017
+genie --platform=x64 vs2022

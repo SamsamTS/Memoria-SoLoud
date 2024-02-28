@@ -4,16 +4,16 @@ local WITH_SDL_STATIC = 0
 local WITH_SDL2_STATIC = 0
 local WITH_PORTAUDIO = 0
 local WITH_OPENAL = 0
-local WITH_XAUDIO2 = 0
-local WITH_WINMM = 0
-local WITH_WASAPI = 0
+local WITH_XAUDIO2 = 1
+local WITH_WINMM = 1
+local WITH_WASAPI = 1
 local WITH_ALSA = 0
 local WITH_JACK = 0
 local WITH_OSS = 0
 local WITH_COREAUDIO = 0
 local WITH_VITA_HOMEBREW = 0
 local WITH_NOSOUND = 0
-local WITH_MINIAUDIO = 0
+local WITH_MINIAUDIO = 1
 local WITH_NULL = 1
 local WITH_TOOLS = 0
 
@@ -421,7 +421,7 @@ print ("")
 solution "SoLoud"
   location(buildroot)
 	configurations { "Debug", "Release" }
-	startproject "simplest"	
+	startproject "SoloudDynamic"	
 	targetdir "../bin"
 	debugdir "../bin"
 	flags { "NoExceptions", "NoRTTI", "NoPCH" }
@@ -459,148 +459,6 @@ end
 
     configuration {}
 
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-  project "simplest"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-	  "../demos/simplest/**.c*"
-	  }
-	includedirs {
-	  "../include"
-	}
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-		links {"SoloudStatic"}
-		if (not os.is("windows")) then
-		  links { "pthread" }
-		  links { "dl" }
-		end
-
-		targetname "simplest"
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-  project "welcome"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-	  "../demos/welcome/**.c*"
-	  }
-	includedirs {
-	  "../include"
-	}
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-		links {"SoloudStatic"}
-		if (not os.is("windows")) then
-		  links { "pthread" }
-		  links { "dl" }
-        end
-
-		targetname "welcome"
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-  project "null"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-	  "../demos/null/**.c*"
-	  }
-	includedirs {
-	  "../include"
-	}
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-
-		links {"SoloudStatic"}
-		if (not os.is("windows")) then
-		  links { "pthread" }
-		  links { "dl" }
-		end
-
-		targetname "null"
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-  project "enumerate"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-	  "../demos/enumerate/**.c*"
-	  }
-	includedirs {
-	  "../include"
-	}
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-		links {"SoloudStatic"}
-		if (not os.is("windows")) then
-		  links { "pthread" }
-		  links { "dl" }
-		end
-
-		targetname "enumerate"
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-if (WITH_SDL2 == 1 or WITH_SDL2STATIC) then
-
-	project "SoloudDemoCommon"
-		kind "StaticLib"
-		targetdir "../lib"
-		language "C++"
-
-	files {
-	  "../demos/common/**.c*",
-	  "../demos/common/imgui/**.c*",
-	  "../demos/common/glew/GL/**.c*"
-	  }
-	includedirs {
-	  "../include",
-	  "../demos/common",
-	  "../demos/common/imgui",
-	  "../demos/common/glew",
-	  sdl2_include
-	}
-	defines { "GLEW_STATIC" }
-
-		targetname "solouddemocommon"
-end
 -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
 
 	project "SoloudStatic"
@@ -876,37 +734,6 @@ end
 
 -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
 
-  project "c_test"
-	kind "ConsoleApp"
-	language "C++"
-	files {
-	  "../demos/c_test/**.c*",
-	  "../src/c_api/soloud_c.cpp"
-	  }
-	includedirs {
-	  "../include"
-	}
-
-		links {"SoloudStatic"}
-		if (not os.is("windows")) then
-		  links { "pthread" }
-		  links { "dl" }
-		end
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-
-		targetname "c_test"
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
 	project "SoloudDynamic"
 		kind "SharedLib"
 		targetdir "../lib"
@@ -991,58 +818,11 @@ end
 
 -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
 
-  CommonDemo("megademo")
+--  CommonDemo("megademo")
 
 -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
 
-  project "piano"
-	kind "WindowedApp"
-	language "C++"
-	files {
-	  "../demos/piano/**.c*",
-	  "../demos/common/**.c*",
-	  "../demos/common/imgui/**.c*",
-	  "../demos/common/glew/GL/**.c*"
-	  }
-	includedirs {
-	  "../include",
-	  "../demos/common",
-	  "../demos/common/imgui",
-	  "../demos/common/glew",
-	  sdl2_include
-	}
-    sdl2_lib()
-    
-	defines { "GLEW_STATIC" }	
-
-if (WITH_ALSA == 1) then
-	links {"asound"}
-end
-if (WITH_JACK == 1) then
-	links { "jack" }
-end
-if (WITH_COREAUDIO == 1) then
-	links {"AudioToolbox.framework"}
-end
-
-		links {"SoloudStatic", "SDL2main", "SDL2"}
-if (os.is("Windows")) then
-        links {"opengl32"}
-        defines {"__WINDOWS_MM__"}
-end
-		if (not os.is("windows")) then
-		  defines { "__LINUX_ALSA__"}
-		  links { "pthread" }
-		  links { "dl" }
-		  links { "GL" }
-		end
-
-		targetname "piano"
-
-
--- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
-
-    CommonDemo("env")
+--    CommonDemo("env")
 
 -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< -- 8< --
     
