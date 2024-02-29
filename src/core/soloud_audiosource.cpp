@@ -356,12 +356,15 @@ namespace SoLoud
 		}
 	}
 
-
 	float AudioSourceInstance::getInfo(unsigned int /*aInfoKey*/)
 	{
 	    return 0;
 	}
 
+	double AudioSourceInstance::getStreamPosition()
+	{
+		return mStreamPosition;
+	}
 
 };
 

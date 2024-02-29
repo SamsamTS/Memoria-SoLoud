@@ -30,6 +30,9 @@ freely, subject to the following restrictions:
 #include "soloud_thread.h"
 #include "soloud_fft.h"
 
+/*#include <iostream>
+#include <fstream>
+std::ofstream _log("Soloud.log");*/
 
 #ifdef SOLOUD_SSE_INTRINSICS
 #include <xmmintrin.h>
@@ -1657,7 +1660,8 @@ namespace SoLoud
 						voice->mResampleData[0] = voice->mResampleData[1];
 						voice->mResampleData[1] = t;
 
-						bool looping = (voice->mLoopEndPoint > 0 && voice->mStreamPosition <= voice->mLoopEndPoint);
+						time streamPosition = voice->getStreamPosition();
+						bool looping = (voice->mLoopEndPoint > 0 && streamPosition <= voice->mLoopEndPoint);
 						if (looping)
 						{
 							voice->mFlags |= AudioSourceInstance::LOOPING;
@@ -1675,7 +1679,7 @@ namespace SoLoud
 							unsigned int samplesToRead = SAMPLE_GRANULARITY;
 							if (looping)
 							{
-								samplesToRead = (unsigned int)((voice->mLoopEndPoint - voice->mStreamPosition) * voice->mSamplerate);
+								samplesToRead = (unsigned int)((voice->mLoopEndPoint - streamPosition) * voice->mSamplerate);
 								if (samplesToRead > SAMPLE_GRANULARITY) samplesToRead = SAMPLE_GRANULARITY;
 							}
 
@@ -1848,7 +1852,8 @@ namespace SoLoud
 						voice->mResampleData[0] = voice->mResampleData[1];
 						voice->mResampleData[1] = t;
 
-						bool looping = (voice->mLoopEndPoint > 0 && voice->mStreamPosition <= voice->mLoopEndPoint);
+						time streamPosition = voice->getStreamPosition();
+						bool looping = (voice->mLoopEndPoint > 0 && streamPosition <= voice->mLoopEndPoint);
 						if (looping)
 						{
 							voice->mFlags |= AudioSourceInstance::LOOPING;

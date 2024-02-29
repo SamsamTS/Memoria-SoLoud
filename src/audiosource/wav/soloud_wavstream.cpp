@@ -401,6 +401,13 @@ namespace SoLoud
 		return 0;
 	}
 
+	double WavStreamInstance::getStreamPosition()
+	{
+		if (mParent->mFiletype == WAVSTREAM_OGG)
+			return mOffset / mSamplerate;
+		return mStreamPosition;
+	}
+
 	WavStream::WavStream()
 	{
 		mFilename = 0;

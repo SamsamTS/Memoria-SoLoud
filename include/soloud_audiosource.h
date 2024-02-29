@@ -200,6 +200,8 @@ namespace SoLoud
 		virtual result rewind();
 		// Get information. Returns 0 by default.
 		virtual float getInfo(unsigned int aInfoKey);
+		// Get stream position
+		virtual time getStreamPosition();
 	};
 
 	class Soloud;

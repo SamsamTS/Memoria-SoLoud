@@ -65,6 +65,7 @@ namespace SoLoud
 		virtual result seek(double aSeconds, float* mScratch, unsigned int mScratchSize);
 		virtual result rewind();
 		virtual bool hasEnded();
+		virtual time getStreamPosition();
 		virtual ~WavStreamInstance();
 	};
 
